@@ -1,6 +1,6 @@
 package com.pm5clone.ui
 
-import android.bluetooth.BluetoothDevice  // ← ДОБАВЛЕНО!
+import android.bluetooth.BluetoothDevice
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -67,7 +67,7 @@ fun Pm5Screen(
             val modes = listOf("Все данные", "Кривая силы", "График", "Лодка", "Крупно")
             ScrollableTabRow(
                 selectedTabIndex = selectedMode,
-                containerColor = Color(0xFF2A2A2A),  // ← ИСПРАВЛЕНО!
+                containerColor = Color(0xFF2A2A2A),
                 contentColor = Color.White,
                 edgePadding = 0.dp,
                 modifier = Modifier.fillMaxWidth()
@@ -101,7 +101,7 @@ fun Pm5Screen(
 @Composable
 private fun SnifferPanel(rawLog: List<RawPacket>, modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier  // ← ИСПРАВЛЕНО!
+        modifier = modifier
             .fillMaxWidth()
             .background(Color(0xFF0D0D0D), RoundedCornerShape(8.dp))
             .padding(12.dp)
