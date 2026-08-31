@@ -1,7 +1,11 @@
 package com.pm5clone.ui
 
+import android.bluetooth.BluetoothDevice  // ← ДОБАВЛЕНО!
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -22,24 +26,23 @@ fun Pm5Screen(
     onToggleSniffer: () -> Unit,
     onScan: () -> Unit,
     onDisconnect: () -> Unit,
-    onConnectToDevice: (BluetoothDevice) -> Unit = {} // пока не используется
+    onConnectToDevice: (BluetoothDevice) -> Unit = {}
 ) {
-    var currentScreen by remember { mutableStateOf("menu") } // "menu" или "workout"
-    var selectedMode by remember { mutableStateOf(0) } // 0-4 для режимов
+    var currentScreen by remember { mutableStateOf("menu") }
+    var selectedMode by remember { mutableStateOf(0) }
 
     if (currentScreen == "menu") {
         MainMenuScreen(
             onJustRow = { currentScreen = "workout" },
-            onSelectWorkout = { /* TODO */ },
-            onConnect = { /* TODO */ },
-            onMemory = { /* TODO */ },
-            onMoreOptions = { /* TODO */ },
-            onUnits = { /* TODO */ },
-            onDisplay = { /* TODO */ },
-            onMenu = { /* TODO */ }
+            onSelectWorkout = {},
+            onConnect = {},
+            onMemory = {},
+            onMoreOptions = {},
+            onUnits = {},
+            onDisplay = {},
+            onMenu = {}
         )
     } else {
-        // Экран тренировки
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -61,11 +64,10 @@ fun Pm5Screen(
 
             Spacer(Modifier.height(8.dp))
 
-            // Вкладки режимов
             val modes = listOf("Все данные", "Кривая силы", "График", "Лодка", "Крупно")
             ScrollableTabRow(
                 selectedTabIndex = selectedMode,
-                backgroundColor = Color(0xFF2A2A2A),
+                containerColor = Color(0xFF2A2A2A),  // ← ИСПРАВЛЕНО!
                 contentColor = Color.White,
                 edgePadding = 0.dp,
                 modifier = Modifier.fillMaxWidth()
@@ -99,13 +101,13 @@ fun Pm5Screen(
 @Composable
 private fun SnifferPanel(rawLog: List<RawPacket>, modifier: Modifier = Modifier) {
     Column(
-        modifier
+        modifier = modifier  // ← ИСПРАВЛЕНО!
             .fillMaxWidth()
-            .background(Color(0xFF0D0D0D), androidx.compose.foundation.shape.RoundedCornerShape(8.dp))
+            .background(Color(0xFF0D0D0D), RoundedCornerShape(8.dp))
             .padding(12.dp)
     ) {
         Text("Сырые пакеты:", color = Color(0xFF8FBF8F), fontSize = 13.sp)
-        androidx.compose.foundation.lazy.LazyColumn {
+        LazyColumn {
             items(rawLog.reversed()) { p ->
                 Text(
                     "${p.characteristicUuid.takeLast(8)}: ${p.hex}",
