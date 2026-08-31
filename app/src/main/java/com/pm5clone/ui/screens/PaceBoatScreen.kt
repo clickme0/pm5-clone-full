@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.sp
 import com.pm5clone.ble.RowingData
 
 @Composable
-fun BarChartScreen(data: RowingData) {
+fun PaceBoatScreen(data: RowingData) {
     Box(modifier = Modifier.fillMaxSize().background(Color(0xFF1A1A1A)).padding(16.dp)) {
-        Text("График (в разработке)", color = Color.White, fontSize = 18.sp, fontFamily = FontFamily.Monospace)
+        Text("Лодка-темп (в разработке)", color = Color.White, fontSize = 18.sp, fontFamily = FontFamily.Monospace)
     }
 }
